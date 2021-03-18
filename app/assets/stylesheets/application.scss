@@ -1,0 +1,164 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ body, body > p, body > ol, body > ul, body > td {margin: 8px !important}
+
+ #banner {
+     position: relative;
+     min-height: 40px;
+     background: #9c9;
+     padding: 10px;
+     border-bottom: 2px solid;
+     font: small-caps 40px/40px "Times New Roman", serif;
+     color: #282;
+     text-align: center;
+
+     img {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 192px;
+     }
+ }
+
+ #notice {
+     color: #000 !important;
+     border: 2px solid red;
+     padding: 1em;
+     margin-bottom: 2em;
+     background-color: #f0f0f0;
+     font: bold smaller sans-serif;
+ }
+
+ #notice:empty {
+     display: none
+ }
+
+ #topnav {
+    background: #141;
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        margin-left: 10.5%;
+        padding: 0;
+        overflow: hidden;
+        // background-color: #333;
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0;
+      
+        li {
+            float: left;
+        
+            a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            
+            a:hover {
+                background-color: #111;
+            }
+            
+            a.active {
+                background-color: #4CAF50;
+            }
+        }
+    }
+ }
+
+ #columns {
+     background: #141;
+     display: flex;
+
+     #main {
+         margin-left: 10%;
+         padding-top: 2%;
+         padding-left: 5%;
+         background: white;
+         flex: 1;
+
+         table {
+             border-collapse: collapse;
+         }
+
+         table tr td {
+             padding: 5px;
+             vertical-align: top;
+         }
+     }
+
+     #side {
+           background: #141;
+            width: 10%;
+            height: 100%; /* 全高 */
+            position: fixed; /* 使它产生粘性，即使在滚动时 */
+            overflow: auto; /* 如果侧栏的内容太多，则启用滚动条 */
+
+         ul {
+            list-style-type: none;
+            margin: 0;
+            margin-top: 2em;
+            margin-bottom: 2em;
+            padding: 0;
+            background: #131;
+
+
+             li {
+                 list-style: none;
+                 a {
+                    padding: 1em 2em;
+                    display: block;
+                     color: #bfb;
+                     font-size: small;
+                    text-decoration: none;
+                }
+                a.active {
+                    background-color: #142;
+                    // color: black;
+                }
+             }
+
+
+
+         }
+
+         ul.side-bottom {
+            background: black;
+            margin-bottom: 0;
+        }
+
+     }
+ }
+
+ @media all and (max-width: 800px) {
+     #columns {
+         flex-direction: column-reverse;
+     }
+ }
+
+ @media all and (max-width: 500px) {
+     #banner {
+         height: 1em;
+     }
+
+     #banner .title {
+         display: none;
+     }
+ }

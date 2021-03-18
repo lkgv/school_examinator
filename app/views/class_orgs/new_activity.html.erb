@@ -1,0 +1,51 @@
+<div id="columns">
+
+  <div id="side">
+    <ul>
+      <% @class_orgs.each do |class_org| %>
+        <% if class_org.id == @class_org.id %>
+          <li><%= link_to(class_org.description, class_org, class: "active") %> </li>
+        <% else %>
+          <li><%= link_to(class_org.description, class_org) %> </li>
+        <% end %>
+      <% end %>
+    </ul>
+    <ul>
+      <li><%= link_to '返回', :back %></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <p id="notice"><%= notice %></p>
+    <h1>新建考核记录</h1>
+
+    <%= form_with(model: @activity, url: create_class_org_activity_path) do |form| %>
+      <% if @activity.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+
+          <ul>
+            <% @activity.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= form.label "考评指标" %>
+        <%= form.select(:std_activity_id, StdActivity.all.map {|x| [x.expr, x.id]}) %>
+      </div>
+
+      <div class="field">
+        <%= form.label "日期" %>
+        <%= form.date_select :date %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<%= form_with(model: class_org) do |form| %>
+  <% if class_org.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(class_org.errors.count, "error") %> prohibited this class_org from being saved:</h2>
+
+      <ul>
+        <% class_org.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label "年级" %>
+    <%= form.select(:grade, [['高一', 'freshman'], ['高二', 'sophomore'], ['高三', 'senior']]) %>
+  </div>
+
+  <div class="field">
+    <%= form.label "班号" %>
+    <%= form.number_field :number %>
+  </div>
+
+  <% if current_user.admin? %>
+    <div class="field">
+      <%= form.label "用户" %>
+      <%= form.select(:user_id, User.all.map {|u| [u.name, u.id]}) %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

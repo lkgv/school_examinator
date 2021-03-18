@@ -1,0 +1,72 @@
+<div id="columns">
+
+  <div id="side">
+    <ul>
+      <li><%= link_to('首页', home_index_path) %></li>
+      <% if current_user %>
+        <li ><%= link_to '班级', class_orgs_path %></li>
+      <% end %>
+      <% if current_user && current_user.admin? %>
+        <li><%= link_to '考核项', exam_items_path %></li>
+        <li><%= link_to '用户管理', user_management_index_path %></li>
+      <% end %>
+    </ul>
+
+    <ul>
+      <% if current_user %>
+        <li><%= link_to('修改信息', edit_registration_path(:user)) %></li>
+        <li><%= link_to('登出', destroy_user_session_path, :method => :delete) %></li>
+      <% else %>
+        <li><%= link_to('注册', new_registration_path(:user)) %></li>
+        <li><%= link_to('登入', new_session_path(:user)) %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2>注册</h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "users/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        用户名<br />
+        <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+      </div>
+
+      <div class="field">
+        权限<br />
+        <%= f.select :role, options_for_select([['管理员', :admin], ['用户', :client]], 'client'), {}, {} %>
+      </div>
+
+      <div class="field">
+        姓名<br />
+        <%= f.text_field :name, autocomplete: "your name" %>
+      </div>
+
+      <div class="field">
+        手机号码<br />
+        <%= f.phone_field :phone %>
+      </div>
+
+      <div class="field">
+        密码
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
+
+      <div class="field">
+        确认密码<br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "注册" %>
+      </div>
+    <% end %>
+
+    <!-- <%= render "users/shared/links" %> -->
+  </div>
+</div>

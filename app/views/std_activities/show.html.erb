@@ -1,0 +1,33 @@
+<div id="columns">
+
+  <div id="side">
+    <ul>
+      <% ExamItem.all.each do |exam_item| %>
+        <% if exam_item.id == @exam_item.id %>
+          <li><%= link_to(exam_item.name, exam_item, class: "active") %> </li>
+        <% else %>
+          <li><%= link_to(exam_item.name, exam_item) %> </li>
+        <% end %>
+      <% end %>
+    </ul>
+    <ul>
+      <li><%= link_to '返回', :back %></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <p id="notice"><%= notice %></p>
+
+    <p>
+      <strong>考核指标:</strong>
+      <%= @std_activity.description %>
+    </p>
+
+    <p>
+      <strong>分数:</strong>
+      <%= @std_activity.score %>
+    </p>
+
+    <%= link_to '编辑', edit_std_activity_path(@std_activity) %>
+  </div>
+</div>

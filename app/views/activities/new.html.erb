@@ -1,0 +1,33 @@
+<div id="columns">
+
+  <div id="side">
+    <ul>
+      <li><%= link_to('首页', home_index_path) %></li>
+      <% if current_user %>
+        <li ><%= link_to '班级', class_orgs_path %></li>
+      <% end %>
+      <% if current_user && current_user.admin? %>
+        <li><%= link_to 'Exam Item', exam_items_path %></li>
+        <li><%= link_to 'Users', user_management_index_path %></li>
+      <% end %>
+    </ul>
+
+    <ul>
+      <% if current_user %>
+        <li><%= link_to('修改信息', edit_registration_path(:user)) %></li>
+        <li><%= link_to('登出', destroy_user_session_path, :method => :delete) %></li>
+      <% else %>
+        <li><%= link_to('注册', new_registration_path(:user)) %></li>
+        <li><%= link_to('登入', new_session_path(:user)) %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h1>New Activity</h1>
+
+    <%= render 'form', activity: @activity %>
+
+    <%= link_to 'Back', activities_path %>
+  </div>
+</div>

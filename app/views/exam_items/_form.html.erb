@@ -1,0 +1,22 @@
+<%= form_with(model: exam_item) do |form| %>
+  <% if exam_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(exam_item.errors.count, "error") %> prohibited this exam_item from being saved:</h2>
+
+      <ul>
+        <% exam_item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    名称:    
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

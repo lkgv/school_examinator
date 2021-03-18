@@ -1,0 +1,24 @@
+<div id="columns">
+
+  <div id="side">
+    <ul>
+      <% @class_orgs.each do |class_org| %>
+        <% if class_org.id == @class_org.id %>
+          <li><%= link_to(class_org.description, class_org, class: "active") %> </li>
+        <% else %>
+          <li><%= link_to(class_org.description, class_org) %> </li>
+        <% end %>
+      <% end %>
+    </ul>
+    <ul>
+      <li><%= link_to '返回', session[:return_path] %></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h1>编辑班级信息</h1>
+
+    <%= render 'form', class_org: @class_org %>
+
+  </div>
+</div>

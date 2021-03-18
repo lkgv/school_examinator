@@ -1,0 +1,48 @@
+<div id="columns">
+
+  <div id="side">
+    <ul>
+      <% @exam_items.each do |exam_item| %>
+        <li><%= link_to(exam_item.name, exam_item) %> </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="main">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <p id="notice"><%= notice %></p>
+
+    <h1>考核项</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>名称</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @exam_items.each do |exam_item| %>
+          <tr>
+            <td><%= exam_item.name %></td>
+            <td><%= link_to '详细', exam_item %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to '编辑', edit_exam_item_path(exam_item) %></td>
+              <td><%= link_to '删除', exam_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <% if current_user.admin? %>
+      <%= link_to '新建考核项', new_exam_item_path %>
+    <% end %>
+
+  </div>
+</div>

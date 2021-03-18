@@ -1,0 +1,24 @@
+<div id="columns">
+
+  <div id="side">
+    <ul>
+      <% @exam_items.each do |exam_item| %>
+        <% if exam_item.id == @exam_item.id %>
+          <li><%= link_to(exam_item.name, exam_item, class: "active") %> </li>
+        <% else %>
+          <li><%= link_to(exam_item.name, exam_item) %> </li>
+        <% end %>
+      <% end %>
+    </ul>
+    <ul>
+      <li><%= link_to '返回', :back %></li>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h1>编辑考核项</h1>
+
+    <%= render 'form', exam_item: @exam_item %>
+
+  </div>
+</div>

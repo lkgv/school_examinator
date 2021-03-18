@@ -1,0 +1,38 @@
+<div id="columns">
+
+  <div id="side">
+    <ul>
+      <li><%= link_to('首页', home_index_path, class: "active") %></li>
+    </ul>
+
+    <ul>
+      <% if current_user %>
+        <li><%= link_to('修改信息', edit_registration_path(:user)) %></li>
+        <li><%= link_to('登出', destroy_user_session_path, :method => :delete) %></li>
+      <% else %>
+        <li><%= link_to('注册', new_registration_path(:user)) %></li>
+        <li><%= link_to('登入', new_session_path(:user)) %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="main">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <style> {padding: 5%;} </style>
+
+    <h1>你好 </h1>
+      <h2> 今天是 <%= Date.today %>， 星期<%= ["天", "一", "二", "三", "四", "五", "六"][Date.today.wday] %> 。 </h2>
+      <% if current_user && @activities.length > 0 %>
+        <h2> 今天新增 <%= @activities.length %> 条考核记录： </h2>
+        <ul> <% @activities.each do |activity| %>
+          <li><%= "#{activity.class_org.description}: #{activity.description}， #{activity.score} 分。" %></li>
+          <% end %>
+        </ul>
+      <% elsif current_user%>
+        <h2> 今天没有新的考核记录。 </h2>
+      <% else %>
+      <h2> 您尚未登陆，请先登陆。 </h2>
+      <% end%>
+  </div>
+</div>

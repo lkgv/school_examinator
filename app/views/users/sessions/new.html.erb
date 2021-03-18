@@ -1,0 +1,54 @@
+<div id="columns">
+
+  <div id="side">
+    <ul>
+      <li><%= link_to('首页', home_index_path) %></li>
+      <% if current_user %>
+        <li ><%= link_to '班级', class_orgs_path %></li>
+      <% end %>
+      <% if current_user && current_user.admin? %>
+        <li><%= link_to '考核项', exam_items_path %></li>
+        <li><%= link_to '用户列表', user_management_index_path %></li>
+      <% end %>
+    </ul>
+
+    <ul>
+      <% if current_user %>
+        <li><%= link_to('修改信息', edit_registration_path(:user)) %></li>
+        <li><%= link_to('登出', destroy_user_session_path, :method => :delete) %></li>
+      <% else %>
+        <li><%= link_to('注册', new_registration_path(:user)) %></li>
+        <li><%= link_to('登入', new_session_path(:user)) %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2>登入</h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        用户名<br />
+        <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+      </div>
+
+      <div class="field">
+        密码<br />
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          记住我
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "登入" %>
+      </div>
+    <% end %>
+
+    <!-- <%= render "users/shared/links" %> -->
+  </div>
+</div>

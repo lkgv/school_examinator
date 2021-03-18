@@ -1,0 +1,86 @@
+<div id="columns">
+
+  <div id="side">
+    <ul>
+      <li><%= link_to('首页', home_index_path) %></li>
+      <% if current_user %>
+        <li ><%= link_to '班级', class_orgs_path %></li>
+      <% end %>
+      <% if current_user && current_user.admin? %>
+        <li><%= link_to '考核项', exam_items_path %></li>
+        <li><%= link_to '用户管理', user_management_index_path %></li>
+      <% end %>
+    </ul>
+
+    <ul>
+      <% if current_user %>
+        <li><%= link_to('修改信息', edit_registration_path(:user)) %></li>
+        <li><%= link_to('登出', destroy_user_session_path, :method => :delete) %></li>
+      <% else %>
+        <li><%= link_to('注册', new_registration_path(:user)) %></li>
+        <li><%= link_to('登入', new_session_path(:user)) %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="main">
+    <h2>修改信息 <%= resource_name.to_s.humanize %></h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "users/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        用户名<br />
+        <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div class="field">
+        权限<br />
+        <%= f.select :role, options_for_select([['管理员', :admin], ['教师', :client]], current_user.role), {}, {} %>
+      </div>
+
+      <div class="field">
+        姓名<br />
+        <%= f.text_field :name, autocomplete: current_user.name %>
+      </div>
+
+      <div class="field">
+        电话号码<br />
+        <%= f.phone_field :phone, autocomplete: current_user.phone %>
+      </div>
+
+      <div class="field">
+        密码 <i>(如果不项修改此项，置为空)</i><br />
+        <%= f.password_field :password, autocomplete: "new-password" %>
+        <% if @minimum_password_length %>
+          <br />
+          <em>最少 <%= @minimum_password_length %> 位</em>
+        <% end %>
+      </div>
+
+      <div class="field">
+        确认密码<br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+
+      <div class="field">
+        当前密码 <i>(输入当前密码以确认修改))</i><br />
+        <%= f.password_field :current_password, autocomplete: "current-password" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Update" %>
+      </div>
+    <% end %>
+
+    <h3>注销帐号</h3>
+
+    <p>注意：注销帐号后相关的班级及考核记录将被全部清除！ <%= button_to "注销帐号", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+    <%= link_to "返回", :back %>
+  </div>
+</div>
