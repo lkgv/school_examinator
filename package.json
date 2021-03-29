@@ -1,5 +1,5 @@
 {
-  "name": "userlogin",
+  "name": "school_examinator",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
